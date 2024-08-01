@@ -29,6 +29,9 @@ public class JDBCPrepared {
         // ' OR '1'='1
 
         ///4.为?占位符复制，并执行SQL语句，接受返回的结果
+        // 设置PreparedStatement的第一个参数（索引从1开始）
+        // 1: 参数索引。PreparedStatement 的参数索引从 1 开始，即第一个 ? 的位置是索引 1。
+        // name: 用户输入的员工姓名，它将被设置为 SQL 查询中的第一个参数。
         preparedStatement.setString(1,name);
         ResultSet resultSet = preparedStatement.executeQuery();
 
