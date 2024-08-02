@@ -1,5 +1,7 @@
 package com.atguigu.senior;
 
+
+import com.atguigu.senior.dao.impl.EmployeeDaoImpl;
 import com.atguigu.senior.util.JDBCUtil;
 import com.atguigu.senior.util.JDBCUtilV2;
 import org.junit.Test;
@@ -46,5 +48,36 @@ public class JDBCUtilTest {
         System.out.println(connection1);
         System.out.println(connection2);
         System.out.println(connection3);
+    }
+
+    @Test
+    public void testEmployeeDao() {
+        //1.创建DAO实现类对象
+        EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
+
+/*        //2.调用查询所有方法
+        List<Employee> employeeList = employeeDao.selectAll();
+
+        //3.处理结果
+        for (Employee employee : employeeList) {
+            System.out.println("employee : " + employee);
+        }*/
+
+        //调用根据id查询单个员工方法
+//        Employee employee = employeeDao.selectByEmpId(1);
+//        System.out.println("employee:" + employee);
+
+        //调用添加员工的方法
+//        Employee employee = new Employee(null, "tom", 300.65, 38);
+//        int insert = employeeDao.insert(employee);
+//        System.out.println("insert = " + insert);
+
+//        Employee employee = new Employee(20007, "tom", 656.65, 38);
+//        int update = employeeDao.update(employee);
+//        System.out.println("update:" + update);
+
+        int delete = employeeDao.delete(20007);
+        System.out.println("delete:" + delete);
+
     }
 }
