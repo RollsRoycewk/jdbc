@@ -1,6 +1,7 @@
 package com.atguigu.senior;
 
 
+import com.atguigu.senior.dao.impl.BankDaoImpl;
 import com.atguigu.senior.dao.impl.EmployeeDaoImpl;
 import com.atguigu.senior.util.JDBCUtil;
 import com.atguigu.senior.util.JDBCUtilV2;
@@ -78,6 +79,40 @@ public class JDBCUtilTest {
 
         int delete = employeeDao.delete(20007);
         System.out.println("delete:" + delete);
+
+    }
+
+    @Test
+    public void testTransaction() {
+        BankDaoImpl bankDao = new BankDaoImpl();
+        Connection connection = null;
+
+        try {
+            //1.获取连接，将连接的事务提交改为手动提交
+            connection = JDBCUtilV2.getConnection();
+            //开启事务，当前连接的自动提交关闭。改为手动提交！
+            connection.setAutoCommit(false);
+
+            //2.操作减钱
+            bankDao.subMoney(1, 100);
+
+//            int i = 10 / 0;
+
+            //3.操作加钱
+            bankDao.addMoney(2, 100);
+
+            //4.前置的多次dao操作，没有异常，提交事务！
+            connection.commit();
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        } finally {
+            JDBCUtilV2.release();
+        }
+
 
     }
 }
